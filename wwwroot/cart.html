@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- ==========================================
+         PHẦN 1: <head> — KHAI BÁO TÀI NGUYÊN
+    ========================================== -->
+    <title>Shoppers &mdash; Colorlib e-Commerce Template</title>
+    <!-- Bộ ký tự UTF-8 để hiển thị đúng tiếng Việt và ký tự đặc biệt -->
+    <meta charset="utf-8">
+    <!-- Responsive: trang tự co giãn theo chiều rộng màn hình thiết bị -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Font chữ Google: Mukta với 3 độ đậm (300 nhẹ, 400 thường, 700 đậm) -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+    <!-- Bộ icon tùy chỉnh (icomoon): dùng cho icon giỏ hàng, tim, người dùng... -->
+    <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+    <!-- CSS framework Bootstrap: layout grid, button, table, form... -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- CSS popup phóng to ảnh (Magnific Popup) -->
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <!-- CSS jQuery UI (dùng cho các widget tương tác) -->
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <!-- CSS carousel băng chuyền sản phẩm (Owl Carousel) -->
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <!-- CSS theme mặc định của Owl Carousel -->
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <!-- CSS hiệu ứng xuất hiện khi cuộn trang (AOS - Animate On Scroll) -->
+    <link rel="stylesheet" href="css/aos.css">
+    <!-- CSS chính của dự án (ghi đè và tùy chỉnh toàn bộ giao diện) -->
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+    <!-- .site-wrap: thẻ div bọc toàn bộ nội dung trang -->
+    <div class="site-wrap">
+
+        <!-- ==========================================
+             PHẦN 2: <header> — THANH ĐIỀU HƯỚNG
+             Gồm 2 tầng:
+               - Tầng trên: tìm kiếm, logo, icon
+               - Tầng dưới: menu ngang chính
+        ========================================== -->
+        <header class="site-navbar" role="banner">
+
+            <!-- Tầng trên: thanh công cụ -->
+            <div class="site-navbar-top">
+                <div class="container">
+                    <!-- Hàng căn giữa theo chiều dọc -->
+                    <div class="row align-items-center">
+
+                        <!-- Ô tìm kiếm — cột trái, hiển thị thứ 2 trên mobile, thứ 1 trên desktop -->
+                        <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
+                            <form action="" class="site-block-top-search">
+                                <!-- Icon kính lúp -->
+                                <span class="icon icon-search2"></span>
+                                <input type="text" class="form-control border-0" placeholder="Search">
+                            </form>
+                        </div>
+
+                        <!-- Logo "Shoppers" — cột giữa, hiển thị đầu tiên trên mobile -->
+                        <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
+                            <div class="site-logo">
+                                <!-- Click vào logo → về trang chủ, .js-logo-clone dùng để nhân bản logo sang menu mobile -->
+                                <a href="index.html" class="js-logo-clone">Shoppers</a>
+                            </div>
+                        </div>
+
+                        <!-- Nhóm icon bên phải: tài khoản, yêu thích, giỏ hàng, menu mobile -->
+                        <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+                            <div class="site-top-icons">
+                                <ul>
+                                    <!-- Icon tài khoản người dùng -->
+                                    <li><a href="#"><span class="icon icon-person"></span></a></li>
+                                    <!-- Icon yêu thích / wishlist -->
+                                    <li><a href="#"><span class="icon icon-heart-o"></span></a></li>
+                                    <!-- Icon giỏ hàng: .site-cart, badge số "2" là số sản phẩm trong giỏ -->
+                                    <li>
+                                        <a href="cart.html" class="site-cart">
+                                            <span class="icon icon-shopping_cart"></span>
+                                            <span class="count">2</span>
+                                        </a>
+                                    </li>
+                                    <!-- Nút hamburger menu: chỉ hiện trên mobile (d-inline-block d-md-none) -->
+                                    <li class="d-inline-block d-md-none ml-md-0">
+                                        <a href="#" class="site-menu-toggle js-menu-toggle">
+                                            <span class="icon-menu"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /Tầng trên -->
+            <!-- Tầng dưới: menu điều hướng chính — ẩn trên mobile (d-none d-md-block) -->
+            <nav class="site-navigation text-right text-md-center" role="navigation">
+                <div class="container">
+                    <ul class="site-menu js-clone-nav d-none d-md-block">
+
+                        <!-- Mục Home: có dropdown con (.has-children) -->
+                        <li class="has-children">
+                            <a href="index.html">Home</a>
+                            <ul class="dropdown">
+                                <li><a href="#">Menu One</a></li>
+                                <li><a href="#">Menu Two</a></li>
+                                <li><a href="#">Menu Three</a></li>
+                                <!-- Dropdown lồng nhau cấp 2 -->
+                                <li class="has-children">
+                                    <a href="#">Sub Menu</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Menu One</a></li>
+                                        <li><a href="#">Menu Two</a></li>
+                                        <li><a href="#">Menu Three</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <!-- Mục About: có dropdown -->
+                        <li class="has-children">
+                            <a href="about.html">About</a>
+                            <ul class="dropdown">
+                                <li><a href="#">Menu One</a></li>
+                                <li><a href="#">Menu Two</a></li>
+                                <li><a href="#">Menu Three</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- Các mục menu đơn (không có dropdown) -->
+                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="#">Catalogue</a></li>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+            <!-- /Tầng dưới -->
+
+        </header>
+        <!-- /PHẦN 2: header -->
+        <!-- ==========================================
+             PHẦN 3: BREADCRUMB — CHỈ ĐƯỜNG ĐIỀU HƯỚNG
+             Hiển thị vị trí hiện tại: Home > Cart
+        ========================================== -->
+        <div class="bg-light py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mb-0">
+                        <!-- Link về trang chủ -->
+                        <a href="index.html">Home</a>
+                        <!-- Dấu phân cách "/" -->
+                        <span class="mx-2 mb-0">/</span>
+                        <!-- Tên trang hiện tại (in đậm) -->
+                        <strong class="text-black">Cart</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /PHẦN 3: breadcrumb -->
+        <!-- ==========================================
+             PHẦN 4: NỘI DUNG GIỎ HÀNG
+             Gồm 2 khu vực:
+               - Bảng danh sách sản phẩm trong giỏ
+               - Khu vực tổng tiền + coupon
+        ========================================== -->
+        <div class="site-section">
+            <div class="container">
+
+                <!-- Hàng chứa bảng sản phẩm -->
+                <div class="row mb-5">
+
+                    <!-- Form bọc toàn bộ bảng (để submit cập nhật giỏ hàng) -->
+                    <form class="col-md-12" method="post">
+                        <div class="site-blocks-table">
+
+                            <!-- Bảng danh sách sản phẩm trong giỏ -->
+                            <table class="table table-bordered">
+
+                                <!-- Hàng tiêu đề cột -->
+                                <thead>
+                                    <tr>
+                                        <th class="product-thumbnail">Image</th>      <!-- Cột ảnh sản phẩm -->
+                                        <th class="product-name">Product</th>          <!-- Cột tên sản phẩm -->
+                                        <th class="product-price">Price</th>           <!-- Cột đơn giá -->
+                                        <th class="product-quantity">Quantity</th>     <!-- Cột số lượng -->
+                                        <th class="product-total">Total</th>           <!-- Cột thành tiền -->
+                                        <th class="product-remove">Remove</th>         <!-- Cột nút xóa -->
+                                    </tr>
+                                </thead>
+
+                                <!-- Thân bảng: danh sách sản phẩm -->
+                                <tbody>
+
+                                    <!-- ===== Sản phẩm 1: Top Up T-Shirt ===== -->
+                                    <tr>
+                                        <!-- Ảnh sản phẩm -->
+                                        <td class="product-thumbnail">
+                                            <img src="images/cloth_1.jpg" alt="Image" class="img-fluid">
+                                        </td>
+                                        <!-- Tên sản phẩm -->
+                                        <td class="product-name">
+                                            <h2 class="h5 text-black">Top Up T-Shirt</h2>
+                                        </td>
+                                        <!-- Đơn giá -->
+                                        <td>$49.00</td>
+                                        <!-- Ô điều chỉnh số lượng (+/-) -->
+                                        <td>
+                                            <div class="input-group mb-3" style="max-width: 120px;">
+                                                <!-- Nút giảm số lượng -->
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                                                </div>
+                                                <!-- Ô hiển thị số lượng hiện tại, mặc định = 1 -->
+                                                <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                                <!-- Nút tăng số lượng -->
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <!-- Thành tiền (đơn giá × số lượng) -->
+                                        <td>$49.00</td>
+                                        <!-- Nút xóa sản phẩm khỏi giỏ -->
+                                        <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
+                                    </tr>
+                                    <!-- ===== /Sản phẩm 1 ===== -->
+                                    <!-- ===== Sản phẩm 2: Polo Shirt ===== -->
+                                    <tr>
+                                        <!-- Ảnh sản phẩm -->
+                                        <td class="product-thumbnail">
+                                            <img src="images/cloth_2.jpg" alt="Image" class="img-fluid">
+                                        </td>
+                                        <!-- Tên sản phẩm -->
+                                        <td class="product-name">
+                                            <h2 class="h5 text-black">Polo Shirt</h2>
+                                        </td>
+                                        <!-- Đơn giá -->
+                                        <td>$49.00</td>
+                                        <!-- Ô điều chỉnh số lượng (+/-) -->
+                                        <td>
+                                            <div class="input-group mb-3" style="max-width: 120px;">
+                                                <!-- Nút giảm số lượng -->
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                                                </div>
+                                                <!-- Ô hiển thị số lượng hiện tại, mặc định = 1 -->
+                                                <input type="text" class="form-control text-center" value="1" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                                                <!-- Nút tăng số lượng -->
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <!-- Thành tiền -->
+                                        <td>$49.00</td>
+                                        <!-- Nút xóa sản phẩm khỏi giỏ -->
+                                        <td><a href="#" class="btn btn-primary btn-sm">X</a></td>
+                                    </tr>
+                                    <!-- ===== /Sản phẩm 2 ===== -->
+
+                                </tbody>
+                            </table>
+                            <!-- /Bảng sản phẩm -->
+
+                        </div>
+                    </form>
+                    <!-- /Form bảng sản phẩm -->
+
+                </div>
+                <!-- /Hàng bảng sản phẩm -->
+                <!-- Hàng chứa: nút điều khiển + coupon (trái) và tổng tiền (phải) -->
+                <div class="row">
+
+                    <!-- ===== CỘT TRÁI: nút Update/Continue + ô Coupon ===== -->
+                    <div class="col-md-6">
+
+                        <!-- Nhóm nút: Update Cart và Continue Shopping -->
+                        <div class="row mb-5">
+                            <!-- Nút cập nhật giỏ hàng -->
+                            <div class="col-md-6 mb-3 mb-md-0">
+                                <button class="btn btn-primary btn-sm btn-block">Update Cart</button>
+                            </div>
+                            <!-- Nút tiếp tục mua sắm (về trang shop) -->
+                            <div class="col-md-6">
+                                <button class="btn btn-outline-primary btn-sm btn-block">Continue Shopping</button>
+                            </div>
+                        </div>
+
+                        <!-- Khu vực nhập mã giảm giá (Coupon) -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="text-black h4" for="coupon">Coupon</label>
+                                <p>Enter your coupon code if you have one.</p>
+                            </div>
+                            <!-- Ô nhập mã coupon -->
+                            <div class="col-md-8 mb-3 mb-md-0">
+                                <input type="text" class="form-control py-3" id="coupon" placeholder="Coupon Code">
+                            </div>
+                            <!-- Nút áp dụng coupon -->
+                            <div class="col-md-4">
+                                <button class="btn btn-primary btn-sm">Apply Coupon</button>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- ===== /CỘT TRÁI ===== -->
+                    <!-- ===== CỘT PHẢI: Tổng tiền giỏ hàng ===== -->
+                    <div class="col-md-6 pl-5">
+                        <!-- Căn nội dung về phía phải -->
+                        <div class="row justify-content-end">
+                            <div class="col-md-7">
+
+                                <!-- Tiêu đề "Cart Totals" -->
+                                <div class="row">
+                                    <div class="col-md-12 text-right border-bottom mb-5">
+                                        <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+                                    </div>
+                                </div>
+
+                                <!-- Dòng Subtotal (tạm tính) -->
+                                <div class="row mb-3">
+                                    <div class="col-md-6">
+                                        <span class="text-black">Subtotal</span>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <strong class="text-black">$230.00</strong>
+                                    </div>
+                                </div>
+
+                                <!-- Dòng Total (tổng cuối cùng) -->
+                                <div class="row mb-5">
+                                    <div class="col-md-6">
+                                        <span class="text-black">Total</span>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <strong class="text-black">$230.00</strong>
+                                    </div>
+                                </div>
+
+                                <!-- Nút thanh toán: click → chuyển sang trang checkout.html -->
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <button class="btn btn-primary btn-lg py-3 btn-block"
+                                                onclick="window.location='checkout.html'">
+                                            Proceed To Checkout
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ===== /CỘT PHẢI ===== -->
+
+                </div>
+                <!-- /Hàng tổng tiền + coupon -->
+
+            </div>
+        </div>
+        <!-- /PHẦN 4: nội dung giỏ hàng -->
+        <!-- ==========================================
+             PHẦN 5: <footer> — CHÂN TRANG
+             Gồm 3 cột:
+               - Cột 1: danh sách liên kết điều hướng
+               - Cột 2: ảnh & nội dung khuyến mãi
+               - Cột 3: thông tin liên hệ + form subscribe
+        ========================================== -->
+        <footer class="site-footer border-top">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Cột 1: Liên kết điều hướng (chia 3 nhóm nhỏ) -->
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="footer-heading mb-4">Navigations</h3>
+                            </div>
+                            <!-- Nhóm link 1: bán hàng -->
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">Sell online</a></li>
+                                    <li><a href="#">Features</a></li>
+                                    <li><a href="#">Shopping cart</a></li>
+                                    <li><a href="#">Store builder</a></li>
+                                </ul>
+                            </div>
+                            <!-- Nhóm link 2: thương mại -->
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">Mobile commerce</a></li>
+                                    <li><a href="#">Dropshipping</a></li>
+                                    <li><a href="#">Website development</a></li>
+                                </ul>
+                            </div>
+                            <!-- Nhóm link 3: phần cứng / phần mềm -->
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">Point of sale</a></li>
+                                    <li><a href="#">Hardware</a></li>
+                                    <li><a href="#">Software</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Cột 1 -->
+                    <!-- Cột 2: Khuyến mãi (ảnh + tiêu đề + thời gian) -->
+                    <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        <h3 class="footer-heading mb-4">Promo</h3>
+                        <a href="#" class="block-6">
+                            <!-- Ảnh banner khuyến mãi -->
+                            <img src="images/hero_1.jpg" alt="Image placeholder" class="img-fluid rounded mb-4">
+                            <!-- Tiêu đề khuyến mãi -->
+                            <h3 class="font-weight-light mb-0">Finding Your Perfect Shoes</h3>
+                            <!-- Thời gian diễn ra khuyến mãi -->
+                            <p>Promo from January 15 &mdash; 25, 2019</p>
+                        </a>
+                    </div>
+                    <!-- /Cột 2 -->
+                    <!-- Cột 3: Thông tin liên hệ + form đăng ký nhận email -->
+                    <div class="col-md-6 col-lg-3">
+
+                        <!-- Địa chỉ, số điện thoại, email liên hệ -->
+                        <div class="block-5 mb-5">
+                            <h3 class="footer-heading mb-4">Contact Info</h3>
+                            <ul class="list-unstyled">
+                                <!-- Địa chỉ -->
+                                <li class="address">203 Fake St. Mountain View, San Francisco, California, USA</li>
+                                <!-- Số điện thoại (click để gọi) -->
+                                <li class="phone"><a href="tel://23923929210">+2 392 3929 210</a></li>
+                                <!-- Địa chỉ email -->
+                                <li class="email">emailaddress@domain.com</li>
+                            </ul>
+                        </div>
+
+                        <!-- Form đăng ký nhận bản tin qua email -->
+                        <div class="block-7">
+                            <form action="#" method="post">
+                                <label for="email_subscribe" class="footer-heading">Subscribe</label>
+                                <div class="form-group">
+                                    <!-- Ô nhập địa chỉ email -->
+                                    <input type="text" class="form-control py-4" id="email_subscribe" placeholder="Email">
+                                    <!-- Nút gửi đăng ký -->
+                                    <input type="submit" class="btn btn-sm btn-primary" value="Send">
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                    <!-- /Cột 3 -->
+
+                </div>
+
+                <!-- Dòng copyright cuối footer -->
+                <div class="row pt-5 mt-5 text-center">
+                    <div class="col-md-12">
+                        <p>
+                            <!-- Ghi chú bản quyền: không được xóa theo giấy phép CC BY 3.0 -->
+                            Copyright &copy;
+                            <!-- Script in ra năm hiện tại tự động -->
+                            <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+                            <script>document.write(new Date().getFullYear());</script>
+                            All rights reserved | This template is made with
+                            <i class="icon-heart" aria-hidden="true"></i> by
+                            <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+        <!-- /PHẦN 5: footer -->
+
+    </div>
+    <!-- /.site-wrap -->
+    <!-- ==========================================
+         PHẦN 6: SCRIPT JS — CUỐI BODY
+         Đặt cuối để không làm chậm tải trang.
+         Thứ tự quan trọng: jQuery phải đứng đầu
+         vì tất cả thư viện khác phụ thuộc vào nó.
+    ========================================== -->
+    <!-- jQuery (bắt buộc nạp trước tất cả) -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- jQuery UI (widget: slider, datepicker...) -->
+    <script src="js/jquery-ui.js"></script>
+    <!-- Popper.js: xử lý tooltip và dropdown của Bootstrap -->
+    <script src="js/popper.min.js"></script>
+    <!-- Bootstrap JS: modal, collapse, navbar... -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Owl Carousel: băng chuyền sản phẩm -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- Magnific Popup: lightbox phóng to ảnh -->
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <!-- AOS: hiệu ứng animation khi cuộn trang -->
+    <script src="js/aos.js"></script>
+    <!-- main.js: khởi tạo tất cả plugin và logic riêng của dự án -->
+    <script src="js/main.js"></script>
+    <!-- /PHẦN 6: scripts -->
+
+</body>
+</html>

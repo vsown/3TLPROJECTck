@@ -1,0 +1,523 @@
+﻿@model IEnumerable<_3TLPROJECTck.ViewModels.CartItem>
+
+@{
+    ViewData["Title"] = "Checkout";
+    var subtotal = Model.Sum(x => x.ThanhTien);
+    var couponCode = ViewBag.CouponCode as string ?? "";
+    var discountPercent = (int)(ViewBag.DiscountPercent ?? 0);
+    var discountAmount = (decimal)(ViewBag.DiscountAmount ?? 0m);
+    var finalTotal = (decimal)(ViewBag.FinalTotal ?? subtotal);
+}
+
+<style>
+    body {
+        background: #f4f8ff;
+    }
+
+    .checkout-title {
+        color: #0d6efd;
+        font-weight: 700;
+    }
+
+    .checkout-card {
+        background: #fff;
+        border-radius: 22px;
+        padding: 30px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        border: none;
+    }
+
+    .form-control {
+        height: 52px;
+        border-radius: 14px;
+        border: 1px solid #dbe5f1;
+        box-shadow: none !important;
+    }
+
+    textarea.form-control {
+        height: auto;
+    }
+
+    .form-control:focus {
+        border-color: #0d6efd;
+    }
+
+    .btn-custom {
+        background: linear-gradient(135deg, #0d6efd, #4da3ff);
+        border: none;
+        border-radius: 14px;
+        color: white;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(13,110,253,0.25);
+            color: white;
+        }
+
+    .order-table th {
+        background: #f0f6ff;
+        color: #0d6efd;
+        border: none;
+    }
+
+    .order-table td {
+        vertical-align: middle;
+    }
+
+    .total-box {
+        background: #f8fbff;
+        border-radius: 16px;
+        padding: 20px;
+    }
+
+    .coupon-box {
+        background: #f8fbff;
+        border-radius: 16px;
+        padding: 20px;
+    }
+
+    .product-img {
+        width: 75px;
+        height: 75px;
+        object-fit: cover;
+        border-radius: 14px;
+        border: 1px solid #eee;
+    }
+
+    .breadcrumb-custom {
+        background: white;
+        border-bottom: 1px solid #e4ecff;
+    }
+
+        .breadcrumb-custom a {
+            color: #0d6efd;
+            font-weight: 500;
+        }
+
+    .coupon-success {
+        background: #e9fff0;
+        color: #198754;
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-size: 14px;
+        margin-top: 15px;
+    }
+
+    .coupon-error {
+        background: #fff0f0;
+        color: #dc3545;
+        padding: 10px 14px;
+        border-radius: 12px;
+        font-size: 14px;
+        margin-top: 15px;
+    }
+
+    .btn-remove-coupon {
+        background: none;
+        border: none;
+        color: #198754;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1;
+        padding: 0 0 0 10px;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+    }
+
+        .btn-remove-coupon:hover {
+            opacity: 1;
+        }
+
+    @@keyframes highlightPulse {
+        0% {
+            color: #0d6efd;
+            transform: scale(1);
+        }
+
+        50% {
+            color: #198754;
+            transform: scale(1.06);
+        }
+
+        100% {
+            color: #0d6efd;
+            transform: scale(1);
+        }
+    }
+
+    .price-updated {
+        animation: highlightPulse 0.5s ease;
+    }
+</style>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb-custom py-3">
+    <div class="container">
+        <a href="/">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/Cart">Giỏ Hàng</a>
+        <span class="mx-2">/</span>
+        <strong class="text-primary">Checkout</strong>
+    </div>
+</div>
+
+<div class="site-section py-5">
+    <div class="container">
+        <div class="row">
+
+            <!-- LEFT: FORM ĐẶT HÀNG -->
+            <div class="col-lg-7 mb-4">
+
+                <form asp-action="Checkout" asp-controller="Cart" method="post" id="checkout-form">
+
+                    @Html.AntiForgeryToken()
+
+                    @* Hiện lỗi validation nếu ModelState fail *@
+                    @if (TempData["CheckoutError"] != null)
+                    {
+                        <div class="alert alert-danger mb-3">
+                            ⚠️ @TempData["CheckoutError"]
+                        </div>
+                    }
+
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger mb-3">
+                            <ul class="mb-0">
+                                @foreach (var kvp in ViewData.ModelState)
+                                {
+                                    @foreach (var err in kvp.Value!.Errors)
+                                    {
+                                        <li>[@kvp.Key] @err.ErrorMessage</li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    <div class="checkout-card">
+
+                        <h3 class="checkout-title mb-4">🚚 Thông tin nhận hàng</h3>
+
+                        <div class="form-group mb-4">
+                            <label class="font-weight-bold">
+                                <input type="hidden" name="GiongKhachHang" value="false" />
+                                <input type="checkbox" name="GiongKhachHang" value="true" id="GiongKhachHang" />
+                                Giống thông tin khách hàng
+                            </label>
+                        </div>
+
+                        <div class="delivery-info">
+
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">Người nhận hàng</label>
+                                <input type="text" class="form-control"
+                                       id="c_companyname" name="HoTen"
+                                       placeholder="Nhập họ tên người nhận" />
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">Địa chỉ nhận hàng</label>
+                                <input type="text" class="form-control"
+                                       id="c_address" name="DiaChi"
+                                       placeholder="Nhập địa chỉ giao hàng" />
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label class="font-weight-bold">Số điện thoại</label>
+                                <input type="text" class="form-control"
+                                       id="c_state_country" name="DienThoai"
+                                       placeholder="Nhập số điện thoại (VD: 0912345678)" />
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label class="font-weight-bold">Ghi chú</label>
+                            <textarea name="GhiChu" id="GhiChu" rows="4"
+                                      class="form-control"
+                                      placeholder="Nhập ghi chú nếu có..."></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <a asp-controller="Cart" asp-action="Index"
+                               class="btn btn-outline-primary py-3 px-4">
+                                ← Quay lại giỏ hàng
+                            </a>
+                            <button type="submit" class="btn btn-custom py-3 px-5">
+                                Đặt hàng (COD)
+                            </button>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+            <!-- RIGHT: COUPON + ORDER SUMMARY -->
+            <div class="col-lg-5">
+
+                <!-- COUPON -->
+                <div class="checkout-card mb-4">
+                    <h3 class="checkout-title mb-4">🎁 Mã giảm giá</h3>
+
+                    <div class="coupon-box">
+
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                   id="couponInput" placeholder="Nhập mã coupon"
+                                   value="@couponCode" />
+                            <div class="input-group-append">
+                                <button class="btn btn-custom px-4" type="button" id="btnApplyCoupon">
+                                    Áp dụng
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="couponSuccess"
+                             class="coupon-success d-flex justify-content-between align-items-center"
+                             style="@(!string.IsNullOrEmpty(couponCode) && discountPercent > 0 ? "" : "display:none")">
+                            <span>
+                                ✅ Mã <strong id="couponCodeDisplay">@couponCode</strong>
+                                đã được áp dụng — Giảm <strong id="couponPctDisplay">@discountPercent</strong>%
+                            </span>
+                            <button type="button" class="btn-remove-coupon" id="btnRemoveCoupon" title="Xóa mã">
+                                ✕
+                            </button>
+                        </div>
+
+                        <div id="couponError" class="coupon-error" style="display:none">
+                            ❌ <span id="couponErrorMsg"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ORDER SUMMARY -->
+                <div class="checkout-card">
+                    <h3 class="checkout-title mb-4">🛒 Đơn hàng của bạn</h3>
+
+                    <table class="table order-table">
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm</th>
+                                <th class="text-right">Tổng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="~/images/@item.Hinh" class="product-img" alt="@item.TenHh" />
+                                            <div class="ml-3">
+                                                <div class="font-weight-bold">@item.TenHh</div>
+                                                <small class="text-muted">SL: @item.SoLuong</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong>@item.ThanhTien.ToString("N0") ₫</strong>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <div class="total-box">
+
+                        <div class="d-flex justify-content-between mb-3">
+                            <span>Tạm tính</span>
+                            <strong>@subtotal.ToString("N0") ₫</strong>
+                        </div>
+
+                        <div id="discountRow"
+                             class="d-flex justify-content-between mb-3"
+                             style="@(discountPercent > 0 ? "" : "display:none")">
+                            <span class="text-success">
+                                Giảm giá (<span id="discPct">@discountPercent</span>%)
+                            </span>
+                            <strong class="text-success">
+                                −<span id="discAmt">@discountAmount.ToString("N0")</span> ₫
+                            </strong>
+                        </div>
+
+                        <hr />
+
+                        <div class="d-flex justify-content-between">
+                            <span class="font-weight-bold">Tổng cộng</span>
+                            <strong class="text-primary" style="font-size:22px;" id="finalTotalDisplay">
+                                @finalTotal.ToString("N0") ₫
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <!-- PAYPAL -->
+                    <div class="mt-4">
+                        <div id="paypal-button-container"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script src="https://www.paypal.com/sdk/js?client-id=@ViewBag.PaypalClientId&currency=USD"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            // Thong tin khach hang lay tu server (ViewBag)
+            var khHoTen = "@Html.Raw(ViewBag.KhHoTen ?? "")";
+            var khDiaChi = "@Html.Raw(ViewBag.KhDiaChi ?? "")";
+            var khDienThoai = "@Html.Raw(ViewBag.KhDienThoai ?? "")";
+
+            function applyKhachHangInfo(checked) {
+                if (checked) {
+                    // Dien thong tin KH vao form, hien thi de nguoi dung thay
+                    $("#c_companyname").val(khHoTen);
+                    $("#c_address").val(khDiaChi);
+                    $("#c_state_country").val(khDienThoai);
+                    $(".delivery-info input").prop("readonly", true).css("background", "#f8f9fa");
+                } else {
+                    // Xoa va cho phep nhap lai
+                    $("#c_companyname").val("");
+                    $("#c_address").val("");
+                    $("#c_state_country").val("");
+                    $(".delivery-info input").prop("readonly", false).css("background", "");
+                }
+            }
+
+            // Checkbox "Giong thong tin khach hang"
+            $("#GiongKhachHang").change(function () {
+                applyKhachHangInfo($(this).prop("checked"));
+            });
+
+            // Khoi tao trang thai ban dau neu checkbox da duoc check
+            if ($("#GiongKhachHang").prop("checked")) {
+                applyKhachHangInfo(true);
+            }
+
+            // AJAX Apply Coupon
+            $("#btnApplyCoupon").click(function () {
+                var code = $("#couponInput").val().trim();
+                var token = $('input[name="__RequestVerificationToken"]').first().val();
+
+                if (!code) {
+                    $("#couponSuccess").hide();
+                    $("#couponError").hide();
+                    return;
+                }
+
+                $("#btnApplyCoupon").prop("disabled", true).text("Đang kiểm tra...");
+
+                $.ajax({
+                    url: '/Cart/ApplyCouponAjax',
+                    type: 'POST',
+                    data: { couponCode: code, __RequestVerificationToken: token },
+                    success: function (res) {
+                        if (res.success) {
+                            $("#couponCodeDisplay").text(res.couponCode);
+                            $("#couponPctDisplay").text(res.discountPercent);
+                            $("#couponSuccess").show();
+                            $("#couponError").hide();
+                            $("#discountRow").show();
+                            $("#discPct").text(res.discountPercent);
+                            $("#discAmt").text(formatVND(res.discountAmount));
+                            var $total = $("#finalTotalDisplay");
+                            $total.text(formatVND(res.finalTotal) + " ₫");
+                            $total.addClass("price-updated");
+                            setTimeout(function () { $total.removeClass("price-updated"); }, 600);
+                        } else {
+                            $("#couponSuccess").hide();
+                            $("#couponErrorMsg").text(res.message);
+                            $("#couponError").show();
+                        }
+                    },
+                    error: function () {
+                        $("#couponErrorMsg").text("Có lỗi xảy ra, vui lòng thử lại.");
+                        $("#couponError").show();
+                    },
+                    complete: function () {
+                        $("#btnApplyCoupon").prop("disabled", false).text("Áp dụng");
+                    }
+                });
+            });
+
+            // Enter trong ô coupon
+            $("#couponInput").keypress(function (e) {
+                if (e.which === 13) { e.preventDefault(); $("#btnApplyCoupon").click(); }
+            });
+
+            // Xóa coupon
+            $("#btnRemoveCoupon").click(function () {
+                var subtotal = @subtotal.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+                var token = $('input[name="__RequestVerificationToken"]').first().val();
+
+                $("#couponSuccess").hide();
+                $("#couponError").hide();
+                $("#couponInput").val("");
+                $("#discountRow").hide();
+
+                var $total = $("#finalTotalDisplay");
+                $total.text(formatVND(subtotal) + " ₫");
+                $total.addClass("price-updated");
+                setTimeout(function () { $total.removeClass("price-updated"); }, 600);
+
+                $.post('/Cart/RemoveCouponAjax', { __RequestVerificationToken: token });
+            });
+
+        });
+
+        function formatVND(amount) {
+            return Math.round(amount).toLocaleString('vi-VN');
+        }
+
+        // PayPal
+        var antiForgeryToken = $('input[name="__RequestVerificationToken"]').first().val();
+
+        paypal.Buttons({
+            style: { disableMaxWidth: true, layout: 'vertical', color: 'blue', shape: 'rect', label: 'paypal' },
+            createOrder: function (data, actions) {
+                return fetch('/Cart/CreatePaypalOrder', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': antiForgeryToken },
+                    body: JSON.stringify({
+                        hoTen: $("#c_companyname").val(),
+                        diaChi: $("#c_address").val(),
+                        dienThoai: $("#c_state_country").val(),
+                        ghiChu: $("#GhiChu").val()
+                    })
+                }).then(res => res.json()).then(data => {
+                    if (!data.orderId) { alert("Không tạo được đơn PayPal"); return; }
+                    return data.orderId;
+                });
+            },
+            onApprove: function (data, actions) {
+                return fetch('/Cart/CapturePaypalOrder', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': antiForgeryToken },
+                    body: JSON.stringify({ orderID: data.orderID })
+                }).then(res => res.json()).then(result => {
+                    if (result.success) { window.location.href = "/Cart/Success"; }
+                    else { alert("Lỗi: " + result.message); }
+                });
+            },
+            onCancel: function () { alert("Bạn đã hủy thanh toán PayPal."); },
+            onError: function (err) { console.log(err); alert("Có lỗi xảy ra khi thanh toán PayPal."); }
+        }).render('#paypal-button-container');
+
+    </script>
+}

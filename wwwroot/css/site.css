@@ -1,0 +1,112 @@
+﻿html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
+  text-align: start;
+}
+.site-block-27 ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+    .site-block-27 ul li {
+        display: inline-flex;
+    }
+
+        .site-block-27 ul li a,
+        .site-block-27 ul li span {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #dee2e6;
+            border-radius: 50%;
+            color: #6c63ff;
+            text-decoration: none;
+        }
+
+        .site-block-27 ul li.active span {
+            background-color: #6c63ff;
+            color: #fff;
+            border-color: #6c63ff;
+        }
+
+        .site-block-27 ul li.disabled a {
+            color: #ccc;
+            pointer-events: none;
+        }
+/* Card sản phẩm bằng nhau */
+/* Card sản phẩm bằng nhau */
+/* ===== PRODUCT CARD FIX ===== */
+.product-list-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+.col-sm-6.col-lg-4 {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.block-4 {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #dee2e6;
+}
+
+.block-4-image {
+    overflow: hidden;
+    height: 260px;
+    flex-shrink: 0;
+}
+
+    .block-4-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+    }
+
+.block-4-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1rem;
+}
+ 

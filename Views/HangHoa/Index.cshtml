@@ -1,0 +1,106 @@
+﻿@model IEnumerable<_3TLPROJECTck.ViewModels.HangHoaVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_DanhSachHangHoa";
+}
+
+@section BreadCrumb {
+    <div class="bg-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-0">
+                    <a asp-controller="Home" asp-action="Index" asp-route-loai="3">Home </a>
+                    <span class="mx-2 mb-0">/</span>
+                    <strong class="text-black">Shop</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="site-section">
+    <div class="container">
+        <div class="row mb-5">
+
+            @* CỘT SẢN PHẨM - full width *@
+            <div class="col-md-12">
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success alert-dismissible fade show text-center"
+                         id="successAlert"
+                         role="alert">
+
+                        @TempData["Success"]
+
+                    </div>
+                }
+                @* Danh sách sản phẩm *@
+                <div class="row mb-5">
+                    @foreach (var item in Model)
+                    {
+                        @await Html.PartialAsync("_ProductItem", item)
+                    }
+                </div>
+
+                @* Phân trang *@
+                <div class="row" data-aos="fade-up">
+                    <div class="col-md-12 text-center">
+                        <div class="site-block-27">
+                            <ul>
+                                @* Nút Previous *@
+                                <li class="@(ViewBag.CurrentPage == 1 ? "disabled" : "")">
+                                    <a asp-action="Index"
+                                       asp-route-page="@(ViewBag.CurrentPage - 1)"
+                                       asp-route-loai="@ViewBag.Loai">&lt;</a>
+                                </li>
+
+                                @* Các số trang *@
+                                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                                {
+                                    <li class="@(i == ViewBag.CurrentPage ? "active" : "")">
+                                        @if (i == ViewBag.CurrentPage)
+                                        {
+                                            <span>@i</span>
+                                        }
+                                        else
+                                        {
+                                            <a asp-action="Index"
+                                               asp-route-page="@i"
+                                               asp-route-loai="@ViewBag.Loai">@i</a>
+                                        }
+                                    </li>
+                                }
+
+                                @* Nút Next *@
+                                <li class="@(ViewBag.CurrentPage == ViewBag.TotalPages ? "disabled" : "")">
+                                    <a asp-action="Index"
+                                       asp-route-page="@(ViewBag.CurrentPage + 1)"
+                                       asp-route-loai="@ViewBag.Loai">&gt;</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    setTimeout(function () {
+
+        let alert = document.getElementById("successAlert");
+
+        if (alert) {
+
+            alert.style.transition = "0.5s";
+            alert.style.opacity = "0";
+
+            setTimeout(() => {
+                alert.remove();
+            }, 500);
+        }
+
+    }, 2000);
+</script>

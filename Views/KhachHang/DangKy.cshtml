@@ -1,0 +1,336 @@
+﻿@model _3TLPROJECTck.ViewModels.RegisterVM
+@{
+    ViewData["Title"] = "Đăng ký tài khoản";
+}
+
+<style>
+    .register-section {
+        background: linear-gradient(135deg, #eaf4ff, #f8fbff);
+        min-height: 100vh;
+        padding: 60px 0;
+    }
+
+    .register-card {
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 10px 35px rgba(0, 102, 204, 0.12);
+        overflow: hidden;
+        border: none;
+    }
+
+    .register-header {
+        background: linear-gradient(135deg, #0d6efd, #4da3ff);
+        color: white;
+        padding: 35px;
+        text-align: center;
+    }
+
+        .register-header h2 {
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+    .register-body {
+        padding: 35px;
+    }
+
+    .form-control {
+        height: 50px;
+        border-radius: 12px;
+        border: 1px solid #d6e6ff;
+        transition: 0.3s;
+    }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
+        }
+
+    .form-check-input:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+    .btn-register {
+        background: linear-gradient(135deg, #0d6efd, #4da3ff);
+        border: none;
+        border-radius: 12px;
+        height: 52px;
+        font-size: 17px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
+        }
+
+    .login-link a {
+        color: #0d6efd;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+    .avatar-preview img {
+        object-fit: cover;
+    }
+
+    .breadcrumb-custom {
+        background: #f1f7ff;
+        border-bottom: 1px solid #dcecff;
+    }
+
+        .breadcrumb-custom a {
+            color: #0d6efd;
+            font-weight: 500;
+        }
+</style>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb-custom py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mb-0">
+                <a href="/">Home</a>
+                <span class="mx-2">/</span>
+                <strong class="text-primary">Đăng Ký</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- NỘI DUNG ĐĂNG KÝ -->
+<div class="register-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <div class="register-card">
+
+                    <!-- HEADER -->
+                    <div class="register-header">
+                        <h2>Tạo tài khoản mới</h2>
+                        <p class="mb-0">Đăng ký để mua sắm nhanh chóng và tiện lợi</p>
+                    </div>
+
+                    <!-- BODY -->
+                    <div class="register-body">
+
+                        <form asp-action="DangKy" asp-controller="KhachHang" method="post" enctype="multipart/form-data">
+                            @Html.AntiForgeryToken()
+
+                            <!-- Mã khách hàng -->
+                            <div class="form-group mb-3">
+                                <label asp-for="@Model.MaKh" class="font-weight-bold"></label>
+                                <input asp-for="@Model.MaKh"
+                                       class="form-control"
+                                       placeholder="Nhập tên đăng nhập">
+                                <span asp-validation-for="@Model.MaKh" class="text-danger"></span>
+                            </div>
+
+                            <!-- Họ tên -->
+                            <div class="form-group mb-3">
+                                <label asp-for="@Model.HoTen" class="font-weight-bold"></label>
+                                <input asp-for="@Model.HoTen"
+                                       class="form-control"
+                                       placeholder="Nhập họ và tên">
+                                <span asp-validation-for="@Model.HoTen" class="text-danger"></span>
+                            </div>
+
+                            <!-- Giới tính -->
+                            <div class="form-group mb-3">
+                                <label class="font-weight-bold d-block">Giới tính</label>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input"
+                                           type="radio"
+                                           asp-for="@Model.GioiTinh"
+                                           value="true"
+                                           id="Nam">
+                                    <label class="form-check-label" for="Nam">Nam</label>
+                                </div>
+
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input"
+                                           type="radio"
+                                           asp-for="@Model.GioiTinh"
+                                           value="false"
+                                           id="Nu">
+                                    <label class="form-check-label" for="Nu">Nữ</label>
+                                </div>
+                            </div>
+
+                            <!-- Ngày sinh -->
+                            <div class="form-group mb-3">
+                                <label asp-for="@Model.NgaySinh" class="font-weight-bold"></label>
+                                <input asp-for="@Model.NgaySinh"
+                                       class="form-control"
+                                       type="date">
+                                <span asp-validation-for="@Model.NgaySinh" class="text-danger"></span>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-group mb-3">
+                                <label asp-for="@Model.Email" class="font-weight-bold"></label>
+                                <input asp-for="@Model.Email"
+                                       class="form-control"
+                                       placeholder="example@email.com">
+                                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+                            </div>
+
+                            <!-- Điện thoại -->
+                            <div class="form-group mb-3">
+                                <label asp-for="@Model.DienThoai" class="font-weight-bold"></label>
+                                <input asp-for="@Model.DienThoai"
+                                       class="form-control"
+                                       placeholder="Nhập số điện thoại">
+                                <span asp-validation-for="@Model.DienThoai" class="text-danger"></span>
+                            </div>
+
+                            <!-- Địa chỉ -->
+                            <div class="form-group mb-3">
+                                <label asp-for="@Model.DiaChi" class="font-weight-bold"></label>
+                                <input asp-for="@Model.DiaChi"
+                                       class="form-control"
+                                       placeholder="Nhập địa chỉ">
+                                <span asp-validation-for="@Model.DiaChi" class="text-danger"></span>
+                            </div>
+
+                            <!-- Hình ảnh -->
+                            <div class="form-group mb-3">
+                                <label class="font-weight-bold">
+                                    Hình ảnh đại diện
+                                </label>
+
+                                <input asp-for="@Model.Hinh"
+                                       type="file"
+                                       name="Hinh"
+                                       class="form-control"
+                                       accept="image/*"
+                                       id="HinhInput" />
+
+                                <span asp-validation-for="@Model.Hinh" class="text-danger"></span>
+
+                                <!-- Preview -->
+                                <div class="avatar-preview mt-3 text-center">
+                                    <img id="HinhPreview"
+                                         src="#"
+                                         alt="Preview"
+                                         class="d-none"
+                                         style="width:150px;height:150px;border-radius:50%;border:4px solid #dbeafe;">
+                                </div>
+                            </div>
+
+                            <!-- Mật khẩu -->
+                            <div class="form-group mb-3">
+                                <label asp-for="@Model.MatKhau" class="font-weight-bold"></label>
+                                <input asp-for="@Model.MatKhau"
+                                       id="MatKhau"
+                                       class="form-control"
+                                       placeholder="Nhập mật khẩu">
+                                <span asp-validation-for="@Model.MatKhau" class="text-danger"></span>
+                            </div>
+
+                            <!-- Xác nhận -->
+                            <div class="form-group mb-4">
+                                <label asp-for="@Model.XacNhanMatKhau" class="font-weight-bold"></label>
+
+                                <input asp-for="@Model.XacNhanMatKhau"
+                                       id="XacNhanMatKhau"
+                                       class="form-control"
+                                       placeholder="Nhập lại mật khẩu">
+
+                                <small id="passwordError"
+                                       class="text-danger d-none">
+                                    Mật khẩu không khớp!
+                                </small>
+
+                                <span asp-validation-for="@Model.XacNhanMatKhau"
+                                      class="text-danger"></span>
+                            </div>
+
+                            <!-- THÔNG BÁO -->
+                            @if (TempData["Error"] != null)
+                            {
+                                <div class="alert alert-danger rounded-pill text-center">
+                                    @TempData["Error"]
+                                </div>
+                            }
+
+                            @if (TempData["Success"] != null)
+                            {
+                                <div class="alert alert-success rounded-pill text-center">
+                                    @TempData["Success"]
+                                </div>
+                            }
+
+                            <!-- BUTTON -->
+                            <div class="form-group">
+                                <button type="submit"
+                                        class="btn btn-primary btn-register btn-block">
+                                    Đăng ký tài khoản
+                                </button>
+                            </div>
+
+                            <!-- LOGIN -->
+                            <div class="text-center mt-4 login-link">
+                                <span>Đã có tài khoản?</span>
+                                <a asp-action="DangNhap"
+                                   asp-controller="KhachHang">
+                                    Đăng nhập ngay
+                                </a>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        // KIỂM TRA MẬT KHẨU
+        const matKhau = document.getElementById('MatKhau');
+        const xacNhan = document.getElementById('XacNhanMatKhau');
+        const error = document.getElementById('passwordError');
+
+        xacNhan.addEventListener('input', function () {
+
+            if (matKhau.value !== xacNhan.value) {
+                error.classList.remove('d-none');
+                xacNhan.setCustomValidity('Mật khẩu không khớp');
+            }
+            else {
+                error.classList.add('d-none');
+                xacNhan.setCustomValidity('');
+            }
+
+        });
+
+        // PREVIEW ẢNH
+        const input = document.getElementById('HinhInput');
+        const preview = document.getElementById('HinhPreview');
+
+        input.addEventListener('change', function (e) {
+
+            const file = e.target.files[0];
+
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+                preview.classList.remove('d-none');
+            }
+
+        });
+    </script>
+}

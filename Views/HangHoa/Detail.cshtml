@@ -1,0 +1,166 @@
+﻿@model _3TLPROJECTck.ViewModels.ChiTietHangHoaVM
+
+@{
+    ViewData["Title"] = "Chi Tiết Sản Phẩm - " + Model.TenHh;
+}
+
+<!-- ===== BREADCRUMB ===== -->
+<div class="bg-light border-bottom py-3 mb-4">
+    <div class="container">
+        <a asp-controller="Home" asp-action="Index"
+           class="text-decoration-none">
+            Home
+        </a>
+
+        <span class="mx-2">/</span>
+
+        <a href="/HangHoa">Sản Phẩm</a>
+
+        <span class="mx-2">/</span>
+
+        <strong>@Model.TenHh</strong>
+    </div>
+</div>
+
+<!-- ===== CHI TIẾT SẢN PHẨM ===== -->
+<div class="container mb-5">
+
+    <div class="row align-items-center">
+
+        <!-- ===== ẢNH ===== -->
+        <div class="col-md-6 text-center">
+
+            <div class="border rounded shadow-sm p-4 bg-white">
+
+                <img src="~/images/@Model.Hinh"
+                     alt="@Model.TenHh"
+                     class="img-fluid rounded"
+                     style="max-height: 500px; object-fit: contain;" />
+
+            </div>
+
+        </div>
+
+        <!-- ===== THÔNG TIN ===== -->
+        <div class="col-md-6 mt-4 mt-md-0">
+
+            <!-- Tên -->
+            <h1 class="fw-bold mb-3">
+                @Model.TenHh
+            </h1>
+
+            <!-- Loại -->
+            <span class="badge bg-dark mb-3 p-2">
+                @Model.TenLoai
+            </span>
+
+            <!-- Giá -->
+            <div class="mb-3">
+
+                <span class="text-danger fw-bold"
+                      style="font-size:32px;">
+
+                    @Model.DonGia.ToString("#,##0") đ
+
+                </span>
+
+            </div>
+
+            <!-- Đánh giá -->
+            <div class="mb-3">
+
+                @for (int i = 1; i <= 5; i++)
+                {
+                    if (i <= Model.DiemDanhGia)
+                    {
+                        <span style="color:orange; font-size:22px;">★</span>
+                    }
+                    else
+                    {
+                        <span style="color:#ccc; font-size:22px;">★</span>
+                    }
+                }
+
+                <span class="text-muted ms-2">
+                    (@Model.DiemDanhGia / 5)
+                </span>
+
+            </div>
+
+            <!-- Tồn kho -->
+            <div class="mb-4">
+
+                @if (Model.SoLuongTon > 0)
+                {
+                    <span class="text-success fw-bold">
+                        ✔ Còn hàng (@Model.SoLuongTon)
+                    </span>
+                }
+                else
+                {
+                    <span class="text-danger fw-bold">
+                        ✖ Hết hàng
+                    </span>
+                }
+
+            </div>
+
+            <!-- Mô tả ngắn -->
+            <p class="text-muted"
+               style="line-height:1.8;">
+
+                @Model.MoTaNgan
+
+            </p>
+
+            <!-- Mô tả chi tiết -->
+            <div class="border-top pt-3 mb-4"
+                 style="line-height:1.8;">
+
+                @Html.Raw(Model.ChiTiet)
+
+            </div>
+
+            <!-- ===== FORM GIỎ HÀNG ===== -->
+            @if (Model.SoLuongTon > 0)
+            {
+                <form asp-controller="Cart"
+                      asp-action="AddToCart"
+                      method="post">
+
+                    <input type="hidden"
+                           name="id"
+                           value="@Model.MaHh" />
+
+                    <input type="hidden"
+                           name="quantity"
+                           value="1" />
+
+                    <button type="submit"
+                            class="btn btn-dark btn-lg px-5">
+
+                        🛒 Thêm vào giỏ hàng
+
+                    </button>
+                    <a asp-controller="HangHoa"
+                       asp-action="Index"
+                       class="btn btn-outline-dark btn-lg px-4">
+
+                        ← Quay lại
+
+                    </a>
+
+                </form>
+            }
+            else
+            {
+                <button class="btn btn-secondary btn-lg" disabled>
+                    Hết hàng
+                </button>
+            }
+
+        </div>
+
+    </div>
+
+</div>

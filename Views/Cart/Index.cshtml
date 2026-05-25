@@ -1,0 +1,293 @@
+﻿@model IEnumerable<_3TLPROJECTck.ViewModels.CartItem>
+
+@{
+    ViewData["Title"] = "Giỏ Hàng";
+
+    var couponCode = ViewBag.CouponCode as string ?? "";
+    var discountPercent = (int)(ViewBag.DiscountPercent ?? 0);
+    var discountAmount = (decimal)(ViewBag.DiscountAmount ?? 0m);
+    var finalTotal = (decimal)(ViewBag.FinalTotal ?? Model.Sum(p => p.DonGia * p.SoLuong));
+    var subtotal = Model.Sum(p => p.DonGia * p.SoLuong);
+}
+
+<!-- ===== BREADCRUMB ===== -->
+<div class="bg-light border-bottom py-3 mb-4">
+    <div class="container">
+        <a href="/" class="text-decoration-none">Home</a>
+        <span class="mx-2">/</span>
+        <strong>Giỏ Hàng</strong>
+    </div>
+</div>
+
+<!-- ===== CART ===== -->
+<div class="container mb-5">
+
+    <!-- THÔNG BÁO -->
+    @if (TempData["CouponMessage"] != null)
+    {
+        var isSuccess = TempData["CouponSuccess"] as bool? ?? false;
+
+        <div class="alert @(isSuccess ? "alert-success" : "alert-danger") alert-dismissible fade show shadow-sm">
+            @TempData["CouponMessage"]
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert">
+            </button>
+        </div>
+    }
+
+    <div class="row">
+
+        <!-- =========================
+             BÊN TRÁI: DANH SÁCH SP
+        ========================== -->
+        <div class="col-lg-8">
+
+            <div class="card shadow-sm border-0 rounded-4">
+
+                <div class="card-body p-4">
+
+                    <h3 class="fw-bold mb-4">
+                        🛒 Giỏ hàng của bạn
+                    </h3>
+
+                    @if (Model.Any())
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <div class="row align-items-center border-bottom py-4">
+
+                                <!-- Ảnh -->
+                                <div class="col-md-2 text-center">
+
+                                    <img src="~/images/@item.Hinh"
+                                         alt="@item.TenHh"
+                                         class="img-fluid rounded"
+                                         style="height:100px; object-fit:cover;" />
+
+                                </div>
+
+                                <!-- Tên -->
+                                <div class="col-md-3">
+
+                                    <h5 class="fw-bold mb-1">
+                                        @item.TenHh
+                                    </h5>
+
+                                    <span class="text-muted">
+                                        Đơn giá:
+                                        @item.DonGia.ToString("#,##0") đ
+                                    </span>
+
+                                </div>
+
+                                <!-- Số lượng -->
+                                <div class="col-md-3">
+
+                                    <div class="d-flex justify-content-center align-items-center">
+
+                                        <a class="btn btn-outline-dark"
+                                           asp-action="Decrease"
+                                           asp-route-id="@item.MaHh">
+
+                                            −
+
+                                        </a>
+
+                                        <input type="text"
+                                               class="form-control text-center mx-2"
+                                               value="@item.SoLuong"
+                                               readonly
+                                               style="width:60px;" />
+
+                                        <a class="btn btn-outline-dark"
+                                           asp-action="Increase"
+                                           asp-route-id="@item.MaHh">
+
+                                            +
+
+                                        </a>
+
+                                    </div>
+
+                                </div>
+
+                                <!-- Thành tiền -->
+                                <div class="col-md-2 text-center">
+
+                                    <strong class="text-danger">
+                                        @item.ThanhTien.ToString("#,##0") đ
+                                    </strong>
+
+                                </div>
+
+                                <!-- Xóa -->
+                                <div class="col-md-2 text-center">
+
+                                    <a asp-action="RemoveCart"
+                                       asp-controller="Cart"
+                                       asp-route-id="@item.MaHh"
+                                       class="btn btn-danger btn-sm rounded-pill">
+
+                                        Xóa
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center py-5">
+
+                            <h4 class="text-muted mb-3">
+                                Giỏ hàng đang trống
+                            </h4>
+
+                            <a href="/HangHoa"
+                               class="btn btn-dark px-4">
+
+                                Tiếp tục mua sắm
+
+                            </a>
+
+                        </div>
+                    }
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- =========================
+             BÊN PHẢI: THANH TOÁN
+        ========================== -->
+        <div class="col-lg-4 mt-4 mt-lg-0">
+
+            <div class="card shadow-sm border-0 rounded-4">
+
+                <div class="card-body p-4">
+
+                    <h4 class="fw-bold mb-4">
+                        💳 Thanh toán
+                    </h4>
+
+                    <!-- Tạm tính -->
+                    <div class="d-flex justify-content-between mb-3">
+
+                        <span>Tạm tính</span>
+
+                        <strong>
+                            @subtotal.ToString("#,##0") đ
+                        </strong>
+
+                    </div>
+
+                    <!-- Giảm giá -->
+                    @if (discountPercent > 0)
+                    {
+                        <div class="d-flex justify-content-between mb-3">
+
+                            <span class="text-success">
+                                Giảm giá (@discountPercent%)
+                            </span>
+
+                            <strong class="text-success">
+                                -@discountAmount.ToString("#,##0") đ
+                            </strong>
+
+                        </div>
+                    }
+
+                    <hr />
+
+                    <!-- Tổng -->
+                    <div class="d-flex justify-content-between mb-4">
+
+                        <h5 class="fw-bold">
+                            Tổng cộng
+                        </h5>
+
+                        <h5 class="fw-bold text-danger">
+                            @finalTotal.ToString("#,##0") đ
+                        </h5>
+
+                    </div>
+
+                    <!-- Coupon -->
+                    <form asp-action="ApplyCoupon"
+                          asp-controller="Cart"
+                          method="post"
+                          class="mb-3">
+
+                        <label class="fw-bold mb-2">
+                            Mã giảm giá
+                        </label>
+
+                        <div class="input-group">
+
+                            <input type="text"
+                                   name="couponCode"
+                                   class="form-control"
+                                   placeholder="Nhập coupon"
+                                   value="@couponCode" />
+
+                            <button type="submit"
+                                    class="btn btn-dark">
+
+                                Áp dụng
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                    <!-- Coupon đang áp dụng -->
+                    @if (!string.IsNullOrEmpty(couponCode) && discountPercent > 0)
+                    {
+                        <div class="mb-3">
+
+                            <span class="badge bg-success p-2">
+
+                                @couponCode - Giảm @discountPercent%
+
+                            </span>
+
+                            <a asp-action="RemoveCoupon"
+                               asp-controller="Cart"
+                               class="text-danger ms-2 text-decoration-none">
+
+                                Xóa
+
+                            </a>
+
+                        </div>
+                    }
+
+                    <!-- Nút thanh toán -->
+                    <a asp-controller="Cart" asp-action="Checkout" class="btn btn-dark w-100 py-3">
+                        Tiến hành thanh toán
+                    </a>
+
+                    <!-- Continue Shopping -->
+                    <a href="/HangHoa"
+                       class="btn btn-outline-dark w-100 mt-3 rounded-pill">
+
+                        ← Tiếp tục mua sắm
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,11 @@
+﻿@model IEnumerable<_3TLPROJECTck.ViewModels.HangHoaVM>
+@{
+    Layout = "_DanhSachHangHoa";
+}
+
+<div class="row g-4 justify-content-center mb-5">
+    @foreach (var item in Model)
+    {
+        @await Html.PartialAsync("_ProductItem", item)
+    }
+</div>

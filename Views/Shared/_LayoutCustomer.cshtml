@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <title>@ViewData["Title"] - Shoppers | Website Bán Hàng</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,400,700">
+
+    <!-- Icon -->
+    <link rel="stylesheet" href="~/fonts/icomoon/style.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/css/jquery-ui.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="~/css/aos.css">
+    <link rel="stylesheet" href="~/css/style.css">
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+
+    <div class="site-wrap">
+
+        <!-- ================= HEADER ================= -->
+        <header class="site-navbar" role="banner">
+
+            <!-- TOP HEADER -->
+            <div class="site-navbar-top">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <!-- TÌM KIẾM -->
+                        <div class="col-6 col-md-4 order-2 order-md-1 site-search-icon text-left">
+                            <form asp-action="Search"
+                                  asp-controller="HangHoa"
+                                  class="site-block-top-search d-flex align-items-center">
+
+                                <button type="button"
+                                        id="searchButton"
+                                        class="btn btn-link p-0 ml-2">
+                                    <span class="icon icon-search2"></span>
+                                </button>
+
+
+                                <input id="searchText"
+                                       type="search"
+                                       class="form-control border-0"
+                                       placeholder="Tìm kiếm sản phẩm..."
+                                       name="query">
+
+
+                            </form>
+                        </div>
+
+                        <!-- LOGO -->
+                        <div class="col-12 mb-3 mb-md-0 col-md-4 order-1 order-md-2 text-center">
+                            <div class="site-logo">
+                                <a href="/" class="logo-text">
+                                    Fashion<span>Shop</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- ICONS -->
+                        <div class="col-6 col-md-4 order-3 order-md-3 text-right">
+                            <div class="site-top-icons">
+                                <ul>
+                                    <!-- Đăng nhập -->
+                                    <li>
+                                        <a asp-action="DangNhap"
+                                           asp-controller="KhachHang"
+                                           title="Đăng nhập">
+                                            <span class="icon icon-person"></span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Yêu thích -->
+                                    <li>
+                                        <a href="#" title="Danh sách yêu thích">
+                                            <span class="icon icon-heart-o"></span>
+                                        </a>
+                                    </li>
+
+                                    <!-- Giỏ hàng -->
+                                    <li>
+                                        @await Component.InvokeAsync("Cart")
+                                    </li>
+
+                                    <!-- Menu mobile -->
+                                    <li class="d-inline-block d-md-none ml-md-0">
+                                        <a href="#" class="site-menu-toggle js-menu-toggle">
+                                            <span class="icon-menu"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- MENU -->
+            <nav class="site-navigation text-right text-md-center" role="navigation">
+                <div class="container">
+                    <ul class="site-menu js-clone-nav d-none d-md-block">
+                        <li>
+                            <a asp-controller="HangHoa" asp-action="Index">
+                                Cửa hàng
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="KhachHang" asp-action="DangKy">
+                                Đăng ký
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="Cart" asp-action="Index">
+                                Giỏ hàng
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </header>
+        <!-- ================= END HEADER ================= -->
+        <!-- ================= PAGE CONTENT ================= -->
+        @RenderBody()
+        <!-- ================= END PAGE CONTENT ================= -->
+        <!-- ================= FOOTER ================= -->
+        <footer class="site-footer border-top">
+            <div class="container">
+
+                <div class="row">
+
+                    <!-- CỘT 1 -->
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h3 class="footer-heading mb-4">
+                                    Điều hướng
+                                </h3>
+                            </div>
+
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">Bán hàng trực tuyến</a></li>
+                                    <li><a href="#">Tính năng</a></li>
+                                    <li><a href="#">Giỏ hàng</a></li>
+                                    <li><a href="#">Tạo cửa hàng</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">Thương mại di động</a></li>
+                                    <li><a href="#">Dropshipping</a></li>
+                                    <li><a href="#">Phát triển website</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="col-md-6 col-lg-4">
+                                <ul class="list-unstyled">
+                                    <li><a href="#">Bán hàng tại quầy</a></li>
+                                    <li><a href="#">Phần cứng</a></li>
+                                    <li><a href="#">Phần mềm</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CỘT 2 -->
+                    <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+                        <h3 class="footer-heading mb-4">Khuyến mãi</h3>
+                        <a href="#" class="block-6">
+                            <img src="~/images/hero_1.jpg"
+                                 alt="Khuyến mãi"
+                                 class="img-fluid rounded mb-4">
+                            <h3 class="font-weight-light mb-0">
+                                Tìm đôi giày hoàn hảo của bạn
+                            </h3>
+                            <p>
+                                Khuyến mãi từ ngày 15 đến 25 tháng 1
+                            </p>
+                        </a>
+                    </div>
+
+                    <!-- CỘT 3 -->
+                    <div class="col-md-6 col-lg-3">
+
+                        <div class="block-5 mb-5">
+                            <h3 class="footer-heading mb-4">
+                                Thông tin liên hệ
+                            </h3>
+                            <ul class="list-unstyled">
+                                <li class="address">
+                                    Trường Đại học Công Nghệ Đồng Nai
+                                </li>
+                                <li class="phone">
+                                    <a href="tel://23923929210">
+                                        0563725798
+                                    </a>
+                                </li>
+                                <li class="email">
+                                    1923050069@dntu.edu.vn
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- ĐĂNG KÝ NHẬN TIN -->
+                        <div class="block-7">
+                            <form action="#" method="post">
+                                <label for="email_subscribe"
+                                       class="footer-heading">
+                                    Đăng ký nhận bản tin
+                                </label>
+                                <div class="form-group">
+                                    <input type="text"
+                                           class="form-control py-4"
+                                           id="email_subscribe"
+                                           placeholder="Nhập email">
+                                    <input type="submit"
+                                           class="btn btn-sm btn-primary"
+                                           value="Gửi">
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- COPYRIGHT -->
+                <div class="row pt-5 mt-5 text-center">
+                    <div class="col-md-12">
+                        <p>
+                            Bản quyền &copy;
+                            <script>document.write(new Date().getFullYear());</script>
+                            | Thiết kế bởi
+                            <a href="https://colorlib.com"
+                               target="_blank"
+                               class="text-primary">    
+                                Colorlib
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </footer>
+        <!-- ================= END FOOTER ================= -->
+
+    </div>
+
+    <!-- JS -->
+    <script src="~/js/jquery-3.3.1.min.js"></script>
+    <script src="~/js/jquery-ui.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/js/aos.js"></script>
+    <script src="~/js/main.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
+    <script>
+        $(document).ready(function () {
+        $("#searchButton").click(function () {
+        let query = $("#searchText").val();
+        if (query.trim() !== "") {
+        window.location.href = '/HangHoa/Search?query=' + query;
+        }
+        });
+        });
+    </script>
+
+</body>
+</html>

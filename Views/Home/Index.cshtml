@@ -1,0 +1,172 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
+}
+
+<div class="site-blocks-cover"
+     style="background-image: url('@Url.Content("~/images/bannerlogo.jpg")');"
+     data-aos="fade">
+
+    <div class="container">
+        <div class="row align-items-start align-items-md-center justify-content-end">
+            <div class="col-md-5 text-center text-md-left pt-5 pt-md-0">
+
+                <h1 class="mb-2">
+                    Thời Trang Hiện Đại Cho Mọi Phong Cách
+                </h1>
+
+                <div class="intro-text text-center text-md-left">
+                    <p class="mb-4">
+                        Khám phá bộ sưu tập quần áo mới nhất với thiết kế trẻ trung,
+                        chất liệu cao cấp và giá cả hợp lý. Tự tin thể hiện phong cách
+                        của bạn mỗi ngày cùng <strong>FashionShop</strong>.
+                    </p>
+
+                    <p>
+                        <a href="/HangHoa" class="btn btn-sm btn-primary">
+                            Mua sắm ngay
+                        </a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- DỊCH VỤ: GIAO HÀNG / ĐỔI TRẢ / HỖ TRỢ -->
+<div class="site-section site-section-sm site-blocks-1">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up">
+                <div class="icon mr-4 align-self-start">
+                    <span class="icon-truck"></span>
+                </div>
+                <div class="text">
+                    <h2 class="text-uppercase">Giao hàng nhanh chóng</h2>
+                    <p>Giao hàng toàn quốc chỉ từ 2–5 ngày. Hỗ trợ kiểm tra sản phẩm trước khi thanh toán.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="icon mr-4 align-self-start">
+                    <span class="icon-refresh2"></span>
+                </div>
+                <div class="text">
+                    <h2 class="text-uppercase">Đổi trả linh hoạt</h2>
+                    <p>Đổi trả sản phẩm trong vòng 7 ngày nếu lỗi hoặc không vừa size. Đảm bảo quyền lợi khách hàng.</p>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4 d-lg-flex mb-4 mb-lg-0 pl-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="icon mr-4 align-self-start">
+                    <span class="icon-help"></span>
+                </div>
+                <div class="text">
+                    <h2 class="text-uppercase">Hỗ trợ khách hàng</h2>
+                    <p>Đội ngũ tư vấn nhiệt tình, hỗ trợ chọn size, phối đồ và giải đáp thắc mắc 24/7.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- SẢN PHẨM NỔI BẬT -->
+<div class="site-section block-3 site-blocks-2 bg-light">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-md-7 text-center pt-4">
+                <h2 class="mb-2">Sản phẩm nổi bật</h2>
+                <p class="text-muted">
+                    Những sản phẩm thời trang được yêu thích nhất, thiết kế hiện đại,
+                    phù hợp nhiều phong cách khác nhau.
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <div class="nonloop-block-3 owl-carousel">
+
+                    <!-- ITEM 1: Áo (MaLoai = 1) -->
+                    <div class="item">
+                        <div class="block-4 text-center product-card">
+                            <figure class="block-4-image position-relative">
+                                <a asp-controller="HangHoa" asp-action="Index" asp-route-loai="1">
+                                    <img src="~/images/tee.jpg" class="img-fluid" alt="Áo thun">
+                                </a>
+                            </figure>
+                            <div class="block-4-text p-4">
+                                <h3>
+                                    <a asp-controller="HangHoa" asp-action="Index" asp-route-loai="1">Áo </a>
+                                </h3>
+                                <p class="mb-1">Chất liệu tốt, sản phẩm đa dạng</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 2: Quần (MaLoai = 2) -->
+                    <div class="item">
+                        <div class="block-4 text-center product-card">
+                            <figure class="block-4-image position-relative">
+                                <a asp-controller="HangHoa" asp-action="Index" asp-route-loai="2">
+                                    <img src="~/images/jeans.jpg" class="img-fluid" alt="Quần Jeans">
+                                </a>
+                            </figure>
+                            <div class="block-4-text p-4">
+                                <h3>
+                                    <a asp-controller="HangHoa" asp-action="Index" asp-route-loai="2">Quần Jeans</a>
+                                </h3>
+                                <p class="mb-1">Form dáng chuẩn, bền đẹp theo thời gian</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 3: Giày (MaLoai = 3) -->
+                    <div class="item">
+                        <div class="block-4 text-center product-card">
+                            <figure class="block-4-image position-relative">
+                                <a asp-controller="HangHoa" asp-action="Index" asp-route-loai="3">
+                                    <img src="~/images/giay.jpg" class="img-fluid" alt="Giày Sneakers">
+                                </a>
+                            </figure>
+                            <div class="block-4-text p-4">
+                                <h3>
+                                    <a asp-controller="HangHoa" asp-action="Index" asp-route-loai="3">Giày </a>
+                                </h3>
+                                <p class="mb-1">Phong cách trẻ trung, dễ phối đồ</p>
+                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 4: Phụ kiện (MaLoai = 4) -->
+                    <div class="item">
+                        <div class="block-4 text-center product-card">
+                            <figure class="block-4-image position-relative">
+                                <a asp-controller="HangHoa" asp-action="Index" asp-route-loai="4">
+                                    <img src="~/images/phukien.jpg" class="img-fluid" alt="Phụ kiện">
+                                </a>
+                            </figure>
+                            <div class="block-4-text p-4">
+                                <h3>
+                                    <a asp-controller="HangHoa" asp-action="Index" asp-route-loai="4">Phụ kiện</a>
+                                </h3>
+                                <p class="mb-1">Hoàn thiện phong cách thời trang</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

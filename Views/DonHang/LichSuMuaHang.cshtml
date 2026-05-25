@@ -1,0 +1,211 @@
+﻿@using Microsoft.AspNetCore.Http
+@using System.Text.Json
+@using _3TLPROJECTck.Models
+
+@{
+    ViewData["Title"] = "Lịch Sử Mua Hàng";
+
+    var json = Context.Session.GetString("LichSuDonHang");
+
+    List<DonHangHistory> lichSu = string.IsNullOrEmpty(json)
+        ? new List<DonHangHistory>()
+        : JsonSerializer.Deserialize<List<DonHangHistory>>(json);
+}
+
+<style>
+    .history-wrapper {
+        background: linear-gradient(to bottom right, #f8fbff, #eef5ff);
+        min-height: 100vh;
+        padding: 50px 0;
+    }
+
+    .history-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(13,110,253,0.1);
+        overflow: hidden;
+    }
+
+    .history-header {
+        background: linear-gradient(135deg, #0d6efd, #3d8bfd);
+        padding: 30px;
+        color: white;
+    }
+
+    .history-title {
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 5px;
+    }
+
+    .order-item {
+        padding: 25px 30px;
+        margin-bottom: 25px;
+        border-radius: 16px;
+        border: 1px solid #e9ecef;
+        background: #fff;
+        box-shadow: 0 4px 12px rgba(13,110,253,0.06);
+    }
+
+        
+
+    .info-label {
+        color: #6c757d;
+        font-weight: 500;
+    }
+
+    .info-value {
+        font-weight: 600;
+        color: #212529;
+    }
+
+    .price {
+        color: #dc3545;
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .status-badge {
+        background: #dbeafe;
+        color: #0d6efd;
+        padding: 8px 16px;
+        border-radius: 30px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .btn-home {
+        border-radius: 10px;
+        padding: 12px 24px;
+        font-weight: 600;
+    }
+</style>
+
+<div class="history-wrapper">
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-9">
+
+                <div class="history-card">
+
+                    <div class="history-header">
+                        <div class="history-title">
+                            🛒 Lịch Sử Mua Hàng
+                        </div>
+
+                        <div>
+                            Xem lại các đơn hàng bạn đã đặt
+                        </div>
+                    </div>
+
+                    @foreach (var item in lichSu.OrderByDescending(x => x.NgayDat))
+                    {
+                        <div class="order-item mb-4">
+
+                            <div class="row mb-3">
+                                <div class="col-md-4 info-label">
+                                    Người nhận
+                                </div>
+
+                                <div class="col-md-8 info-value">
+                                    @item.HoTen
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4 info-label">
+                                    Số điện thoại
+                                </div>
+
+                                <div class="col-md-8 info-value">
+                                    @item.DienThoai
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4 info-label">
+                                    Địa chỉ
+                                </div>
+
+                                <div class="col-md-8 info-value">
+                                    @item.DiaChi
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4 info-label">
+                                    Ngày đặt
+                                </div>
+
+                                <div class="col-md-8 info-value">
+                                    @item.NgayDat
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4 info-label">
+                                    Thanh toán
+                                </div>
+
+                                <div class="col-md-8 info-value">
+                                    @item.ThanhToan
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4 info-label">
+                                    Vận chuyển
+                                </div>
+
+                                <div class="col-md-8 info-value">
+                                    @item.VanChuyen
+                                </div>
+                            </div>
+
+                            <div class="row align-items-center mt-4">
+
+                                <div class="col-md-6">
+                                    <div class="info-label">
+                                        Tổng thanh toán
+                                    </div>
+
+                                    <div class="price">
+                                        @item.TongTien ₫
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 text-md-right mt-3 mt-md-0">
+                                    <span class="status-badge">
+                                        Đang xử lý
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+
+                <div class="text-center mt-4">
+
+                    <a asp-controller="Home"
+                       asp-action="Index"
+                       class="btn btn-primary btn-home">
+
+                        Về trang chủ
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

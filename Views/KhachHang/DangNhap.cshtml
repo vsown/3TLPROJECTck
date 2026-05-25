@@ -1,0 +1,242 @@
+﻿@model _3TLPROJECTck.ViewModels.LoginVM
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+
+<!-- ===== STYLE ===== -->
+<style>
+    body {
+        background: #f4f8ff;
+    }
+
+    .login-wrapper {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .login-card {
+        width: 100%;
+        border-radius: 20px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        border: none;
+    }
+
+    .login-left {
+        background: linear-gradient(135deg, #0d6efd, #4da3ff);
+        color: white;
+        padding: 50px 40px;
+        height: 100%;
+    }
+
+        .login-left h2 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .login-left p {
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+    .login-right {
+        padding: 50px 40px;
+    }
+
+    .form-control {
+        height: 50px;
+        border-radius: 12px;
+        border: 1px solid #dbe5f1;
+        box-shadow: none !important;
+    }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+        }
+
+    .btn-login {
+        background: #0d6efd;
+        border: none;
+        border-radius: 12px;
+        height: 50px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+        .btn-login:hover {
+            background: #0056d2;
+        }
+
+    .btn-register {
+        border-radius: 12px;
+        height: 50px;
+        font-weight: 600;
+    }
+
+    .login-title {
+        font-weight: bold;
+        color: #0d6efd;
+    }
+
+    .alert {
+        border-radius: 10px;
+    }
+</style>
+
+<!-- ===== BREADCRUMB ===== -->
+<div class="bg-white border-bottom py-3">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <a href="/" class="text-primary">Home</a>
+                <span class="mx-2">/</span>
+                <strong>Đăng nhập</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== LOGIN ===== -->
+<div class="site-section">
+    <div class="container">
+
+        <div class="login-wrapper">
+
+            <div class="row login-card">
+              
+                <!-- LEFT -->
+                <div class="col-md-5 d-none d-md-flex align-items-center login-left">
+
+                    <div>
+                        <h2>Fashion Shop</h2>
+
+                        <p>
+                            Chào mừng bạn quay trở lại.
+                            Đăng nhập để tiếp tục mua sắm,
+                            theo dõi đơn hàng và nhận ưu đãi mới nhất.
+                        </p>
+
+                        <img src="https://cdn-icons-png.flaticon.com/512/891/891462.png"
+                             style="width:120px; margin-top:20px; opacity:0.95;">
+                    </div>
+
+                </div>
+
+                <!-- RIGHT -->
+                <div class="col-md-7 login-right">
+
+                    <h2 class="login-title mb-4">
+                        Đăng nhập tài khoản
+                    </h2>
+
+                    <form asp-action="DangNhap"
+                          asp-route-returnurl="@ViewBag.ReturnUrl"
+                          asp-controller="KhachHang"
+                          method="post">
+                        @if (TempData["Success"] != null)
+                        {
+                            <div class="alert alert-success text-center rounded-pill">
+                                @TempData["Success"]
+                            </div>
+                        }
+                       
+
+                        @Html.AntiForgeryToken()
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger">
+                                Sai tài khoản hoặc mật khẩu!
+                            </div>
+                        }
+
+                        <!-- USERNAME -->
+                        <div class="form-group mb-4">
+
+                            <label asp-for="@Model.UserName"
+                                   class="font-weight-bold mb-2">
+                            </label>
+
+                            <input asp-for="@Model.UserName"
+                                   class="form-control"
+                                   placeholder="Nhập tên đăng nhập">
+
+                            <span asp-validation-for="@Model.UserName"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                        <!-- PASSWORD -->
+                        <div class="form-group mb-4">
+
+                            <label asp-for="@Model.Password"
+                                   class="font-weight-bold mb-2">
+                            </label>
+
+                            <input asp-for="@Model.Password"
+                                   id="MatKhau"
+                                   class="form-control"
+                                   placeholder="Nhập mật khẩu">
+
+                            <span asp-validation-for="@Model.Password"
+                                  class="text-danger">
+                            </span>
+
+                        </div>
+
+                        <!-- ALERT -->
+                        @if (TempData["Error"] != null)
+                        {
+                            <div class="alert alert-danger">
+                                @TempData["Error"]
+                            </div>
+                        }
+
+                       
+
+                        <!-- BUTTON -->
+                        <button type="submit"
+                                class="btn btn-primary btn-login btn-block mb-3">
+
+                            Đăng nhập
+
+                        </button>
+
+                        <a asp-controller="KhachHang"
+                           asp-action="DangKy"
+                           class="btn btn-outline-primary btn-register btn-block">
+
+                            Bạn chưa có tài khoản? Đăng ký
+
+                        </a>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<script>
+    setTimeout(function () {
+
+        let alertBox = document.querySelector('.alert-success');
+
+        if (alertBox) {
+            alertBox.style.transition = "0.5s";
+            alertBox.style.opacity = "0";
+
+            setTimeout(() => {
+                alertBox.remove();
+            }, 500);
+        }
+
+    }, 2000);
+</script>
